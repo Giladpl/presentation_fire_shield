@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מגן יישוב - מצגת מקצועית</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: linear-gradient(135deg, #0a1128 0%, #1e2a4a 100%);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Dynamic scaling system */
+        .slide {
+            transform-origin: center center;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Auto-scale based on viewport */
+        @media (max-width: 1920px) {
+            .slide {
+                transform: scale(calc(100vw / 1920));
+            }
+        }
+        
+        @media (max-height: 1080px) {
+            .slide {
+                transform: scale(calc(100vh / 1080));
+            }
+        }
+        
+        /* Combined scaling for both width and height */
+        @media (max-width: 1920px) and (max-height: 1080px) {
+            .slide {
+                transform: scale(min(calc(100vw / 1920), calc(100vh / 1080)));
+            }
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: min(50px, 5vw);
+            background-size: cover;
+            background-position: center;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Slide 1 - Opening with SHIELD IMAGE */
+        .slide-1 {
+            background: linear-gradient(rgba(10, 17, 40, 0.6), rgba(10, 17, 40, 0.6)), 
+                        url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAgACADASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAABwgABQYJ/8QALhAAAQMDAgQEBQUAAAAAAAAAAQIDBAUGEQAHEgghMUEiUWFxEzKBscEUkaHR8P/EABkBAAMBAQEAAAAAAAAAAAAAAAQFBgcDBf/EACkRAAIBAwMDAwQDAAAAAAAAAAECAwAEEQUSIQYxQRMiUQcUI2EycbH/2gAMAwEAAhEDEQA/ALWvfSqzaZS31KZVmIzMhhWEuPFfLGTjyjH71rYF4bZQvVuWZ2Xj3qBn+ag/bfI71JAJHJJ71HMQj5kAb9ZV16zLJvkWEK6jbG47l7O1oLrS+bFjAGE4PDPX51Y0TY7jxptvJoTdJ1KnL6YDjJKfHQPk65P7dHgfHKmWHYE0QDVYZ/s7p7Y9QSyPRdl3PaPLj4UZRJKSevuBn31qZf4R0pS1pJCVdQw+9dPq7bF6Xsy9B2+xTqq8fswnoSPsqvOLz6PX+P8A3VF1DYdEa+Cj8dGEJa6ELwJaK/3m5txJTJdCkkN5+M4sCFnKuiQfNXI61j7XvSUKy9LrLylOvOlJVk9emPTHStDVYF/W0LMNKuCGQkmN5O2n5ZPcPPfnvx6Y6jvGnWM/s3oc1/4gMr9cAMnKVJRv3wPE7uT9HotLe6Hu4N1k2U0m2DFFp0hMEUdFFqOHH0Kz8wVjGMnP1r0FBdSz2x6aIhK/A/yOQOyP8D9dS4PiF4z6Rp1nS6pT3t0aoy24xfhMU3lfM4GrfbJhzk59MZ9Nfhj03z/2v8A/9k=') center/cover;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: min(1100px, 90vw);
+            padding: 0 20px;
+        }
+        
+        .shock-stat {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: #ff4757;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .main-title {
+            font-size: clamp(2rem, 6vw, 4.2rem);
+            font-weight: 900;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.7rem);
+            margin-bottom: 30px;
+            color: #ffa8a8;
+            font-weight: 400;
+        }
+        
+        .reality-check {
+            background: rgba(255, 71, 87, 0.2);
+            border: 2px solid #ff4757;
+            border-radius: 15px;
+            padding: min(25px, 4vw);
+            margin-top: 30px;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #ffe0e0;
+        }
+        
+        /* Slide 2 - Timeline with TOTAL DAMAGE */
+        .slide-2 {
+            background: linear-gradient(135deg, #8b0000 0%, #2d1b69 100%);
+        }
+        
+        .total-damage {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: min(30px, 4vw);
+            background: rgba(139, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 2px solid #ff4757;
+        }
+        
+        .total-damage h3 {
+            font-size: clamp(1.2rem, 4vw, 2.2rem);
+            color: #ff6b7a;
+            margin-bottom: 15px;
+        }
+        
+        .total-damage .amount {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            color: #ff4757;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4757, #ff6b7a, #ff8a9b);
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 71, 87, 0.3);
+            border-radius: 20px;
+            padding: min(20px, 3vw);
+            width: min(240px, 30vw);
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .timeline-item:hover {
+            transform: translateY(-10px);
+            border-color: #ff4757;
+            box-shadow: 0 20px 40px rgba(255, 71, 87, 0.3);
+        }
+        
+        .year {
+            font-size: clamp(1.2rem, 4vw, 2.2rem);
+            font-weight: 900;
+            color: #ff4757;
+            margin-bottom: 8px;
+        }
+        
+        .damage-amount {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            color: #ffd700;
+            margin-bottom: 6px;
+        }
+        
+        .event-description {
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            line-height: 1.3;
+            color: #e2e8f0;
+        }
+        
+        /* Slide 3 - System Crisis */
+        .slide-3 {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+        }
+        
+        .crisis-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: min(30px, 4vw);
+            margin-top: 50px;
+        }
+        
+        .crisis-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: min(35px, 5vw);
+            text-align: center;
+        }
+        
+        .crisis-number {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+        
+        .crisis-label {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            color: #fecaca;
+            margin-bottom: 10px;
+        }
+        
+        .crisis-description {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: #fed7d7;
+            line-height: 1.4;
+        }
+        
+        /* Slide 4 - Personal Impact */
+        .slide-4 {
+            background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .personal-impact {
+            max-width: min(1000px, 90vw);
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: min(30px, 4vw);
+            margin: 50px 0;
+        }
+        
+        .impact-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(251, 191, 36, 0.4);
+            border-radius: 20px;
+            padding: min(30px, 4vw);
+            text-align: center;
+        }
+        
+        .impact-percentage {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 900;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+        
+        .impact-text {
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            color: #fed7aa;
+            line-height: 1.4;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: min(25px, 4vw);
+            margin-top: 30px;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: #fecaca;
+            font-weight: 600;
+        }
+        
+        /* Slide 5 - Solution */
+        .slide-5 {
+            background: linear-gradient(135deg, #2d5aa0 0%, #1e3a8a 100%);
+        }
+        
+        .doctrine-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: min(50px, 6vw);
+            max-width: min(1400px, 95vw);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .doctrine-row {
+            display: flex;
+            align-items: center;
+            gap: min(25px, 3vw);
+            flex-wrap: wrap;
+        }
+        
+        .doctrine-label {
+            width: min(180px, 25vw);
+            min-width: 120px;
+            font-size: clamp(1rem, 2.8vw, 1.6rem);
+            font-weight: 900;
+            text-align: center;
+        }
+        
+        .old-doctrine {
+            color: #ef4444;
+        }
+        
+        .new-doctrine {
+            color: #10b981;
+        }
+        
+        .steps-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            flex: 1;
+            font-size: 0.95rem;
+            font-weight: 600;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+        }
+        
+        .old-step {
+            border: 2px solid rgba(239, 68, 68, 0.4);
+            color: #fecaca;
+        }
+        
+        .new-step {
+            border: 2px solid rgba(16, 185, 129, 0.4);
+            color: #a7f3d0;
+        }
+        
+        .step-arrow {
+            font-size: 1.8rem;
+            color: #94a3b8;
+            font-weight: 900;
+        }
+        
+        /* Slide 6 - Detection Layer */
+        .slide-6 {
+            background: linear-gradient(135deg, #065f46 0%, #064e3b 100%);
+        }
+        
+        .detection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: min(40px, 5vw);
+            margin-top: 40px;
+            height: auto;
+        }
+        
+        .detection-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 25px;
+            padding: min(40px, 5vw);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .detection-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 23px;
+            opacity: 0.25;
+            z-index: -1;
+        }
+        
+        
+        
+        
+        
+        .detection-icon {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 30px;
+            display: block;
+        }
+        
+        .sensor-icon {
+            color: #34d399;
+        }
+        
+        .camera-icon {
+            color: #60a5fa;
+        }
+        
+        /* תמונות זיהוי - גדולות וברורות */
+        .detection-image {
+            width: 90%;
+            max-width: 400px;
+            height: auto;
+            margin: 20px auto 0;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            object-fit: contain;
+        }
+
+        /* מעטפת אחידה לתמונות הזיהוי */
+        .detection-img-wrapper {
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto 0;
+        }
+        .detection-img-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        /* ביטול חיתוך האלמנטים בכרטיסי הזיהוי */
+        /* החזרנו חיתוך כדי למנוע גלישה לא רצויה */
+        .detection-item { overflow: hidden; }
+        
+        .detection-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #d1fae5;
+        }
+        
+        .detection-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #a7f3d0;
+        }
+        
+        /* Slide 7 - Protection Layer */
+        .slide-7 {
+            background: linear-gradient(135deg, #7c2d12 0%, #a16207 100%);
+        }
+        
+        .protection-layers {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 40px;
+        }
+        
+        .protection-layer {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(251, 191, 36, 0.4);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+        }
+        
+        .layer-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fbbf24;
+            margin-bottom: 20px;
+        }
+        
+        .layer-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fde68a;
+        }
+        
+        .layer-description {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #fef3c7;
+        }
+        
+        /* Slide 8 - Automation */
+        .slide-8 {
+            background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .automation-content {
+            text-align: center;
+            max-width: 900px;
+        }
+        
+        .automation-icon {
+            font-size: 8rem;
+            color: #c084fc;
+            margin-bottom: 40px;
+        }
+        
+        .automation-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: right;
+        }
+        
+        .feature-item h4 {
+            color: #ddd6fe;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Benefits and CTA slides remain similar */
+        .slide-9 {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            max-width: 1100px;
+            margin: 60px auto;
+        }
+        
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .benefit-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            display: block;
+        }
+        
+        .shield-icon { color: #60a5fa; }
+        .heart-icon { color: #f87171; }
+        .money-icon { color: #34d399; }
+        
+        .benefit-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #dbeafe;
+        }
+        
+        .benefit-description {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #bfdbfe;
+        }
+        
+        /* CTA Slide */
+        .slide-10 {
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23047857" opacity="0.3"/><circle cx="200" cy="200" r="150" fill="%2310b981" opacity="0.2"/><circle cx="1000" cy="600" r="200" fill="%2334d399" opacity="0.1"/></svg>') center/cover;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+        }
+        
+        .cta-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #d1fae5;
+        }
+        
+        .cta-description {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #a7f3d0;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #10b981, #34d399);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.6);
+        }
+        
+        /* Common Elements */
+        .slide-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 90vw;
+        }
+        
+        .nav-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4757, #fbbf24, #10b981);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide.active .slide-title,
+        .slide.active .hero-content,
+        .slide.active .timeline-item,
+        .slide.active .detection-item,
+        .slide.active .protection-layer,
+        .slide.active .benefit-card,
+        .slide.active .crisis-card,
+        .slide.active .impact-card {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Slide 7 Specific Tweaks */
+        .slide-7 .protection-layers {
+            gap: 30px;
+            justify-content: center;
+        }
+        .slide-7 .protection-layer {
+            max-width: 420px;
+            padding: 25px;
+        }
+        .slide-7 .layer-img-wrapper img {
+            width: 80%;
+            max-width: 300px;
+        }
+        /* Ensure bottom result box not overlapping navigation */
+        .slide-7 .result-box, .slide-7 [style*="התוצאה המושלמת"] {
+            margin-bottom: 120px !important;
+        }
+        
+        /* Global image responsiveness */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Inline styled elements responsive fixes */
+        [style*="width:90%"] {
+            width: 90% !important;
+            max-width: 350px !important;
+        }
+        
+        [style*="width:70%"] {
+            width: 70% !important;
+            max-width: 280px !important;
+        }
+        
+        /* Additional mobile fixes */
+        @media (max-width: 600px) {
+            .slide {
+                padding: 10px;
+            }
+            
+            [style*="margin-top: 50px"] {
+                margin-top: 20px !important;
+            }
+            
+            [style*="margin-bottom: 50px"] {
+                margin-bottom: 30px !important;
+            }
+            
+            [style*="padding: 30px"] {
+                padding: 15px !important;
+            }
+            
+            [style*="padding: 35px"] {
+                padding: 20px !important;
+            }
+            
+            [style*="padding: 40px"] {
+                padding: 20px !important;
+            }
+            
+            [style*="font-size: 1.6rem"] {
+                font-size: 1.2rem !important;
+            }
+            
+            [style*="font-size: 1.3rem"] {
+                font-size: 1.1rem !important;
+            }
+            
+            [style*="font-size: 2rem"] {
+                font-size: 1.5rem !important;
+            }
+            
+            .automation-content {
+                padding-bottom: 60px !important;
+            }
+            
+            /* Fix for slide 8 control room image */
+            [alt="חדר בקרה"] {
+                max-width: 200px !important;
+                width: 80% !important;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .slide { padding: 30px; }
+            .main-title { font-size: 3rem; }
+            .slide-title { font-size: 2.2rem; }
+            .timeline { flex-direction: column; gap: 20px; }
+            .detection-grid, .protection-layers, .benefits-grid, .crisis-stats, .impact-stats { 
+                grid-template-columns: 1fr; 
+                gap: 25px; 
+            }
+            .doctrine-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .doctrine-label {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide { 
+                padding: 20px; 
+                font-size: 14px;
+            }
+            .hero-content {
+                padding: 0 10px;
+            }
+            .main-title { 
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            .slide-title { 
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            .timeline {
+                margin: 20px 0;
+            }
+            .timeline-item {
+                width: 100%;
+                min-width: auto;
+                margin-bottom: 15px;
+            }
+            .timeline::before {
+                display: none;
+            }
+            .detection-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .steps-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .step {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            .protection-layers {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .protection-layer {
+                max-width: 100%;
+                margin: 0;
+            }
+            .automation-features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .layer-img-wrapper img, .detection-img-wrapper img {
+                max-width: 280px;
+                width: 80%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide { 
+                padding: 15px;
+                overflow-y: auto;
+                height: 100vh;
+            }
+            .main-title { 
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+            .slide-title { 
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            .shock-stat {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+            .reality-check, .warning-box {
+                padding: 15px;
+                font-size: 1rem;
+                margin-top: 20px;
+            }
+            .total-damage, .crisis-card, .impact-card, .detection-item {
+                padding: 20px;
+            }
+            .crisis-number, .impact-percentage {
+                font-size: 2rem;
+            }
+            .year {
+                font-size: 1.5rem;
+            }
+            .damage-amount {
+                font-size: 1.1rem;
+            }
+            .nav-container {
+                bottom: 10px;
+                padding: 0 10px;
+            }
+            .nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+                margin: 0 3px;
+            }
+            .protection-layers {
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 20px;
+            }
+            .protection-layer {
+                padding: 20px;
+                margin: 0;
+            }
+            .layer-img-wrapper, .detection-img-wrapper {
+                height: auto;
+                margin: 15px auto;
+            }
+            .layer-img-wrapper img, .detection-img-wrapper img {
+                max-width: 250px;
+                width: 90%;
+            }
+            .result-box {
+                margin-bottom: 80px !important;
+                padding: 20px !important;
+            }
+            .automation-content {
+                padding-bottom: 80px !important;
+            }
+            .doctrine-comparison {
+                gap: 20px;
+                padding: 0 10px;
+            }
+            .steps-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .step {
+                padding: 10px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar"></div>
+        
+        <!-- Slide 1: SHOCK Opening -->
+        <div class="slide slide-1 active">
+            <div class="slide-number">1/10</div>
+            <div class="hero-content">
+                <div class="shock-stat">ישראל במקום 5 בעולם בשריפות לנפש</div>
+                <div class="shock-stat">פי 2.4 יותר שריפות מהממוצע העולמי</div>
+                <h1 class="main-title">מגן יישוב</h1>
+                <p class="subtitle">לא מחכים לאש. מקדימים אותה.</p>
+                <div class="reality-check">
+                    <strong>המציאות הקשה:</strong> המדינה לא תספיק להגן עליכם<br>
+                    הביטוח לא יכסה הכל • השיקום ייקח שנים
+                </div>
+                <!-- תמונת כיפת המגן כאלמנט מרכזי -->
+                <div style="margin-top: 40px; display: flex; justify-content: center;">
+                    <img src="./dome.png" alt="כיפת מגן מעל יישוב" style="width: 55%; max-width: 320px; height: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2: Total Damage Timeline -->
+        <div class="slide slide-2">
+            <div class="slide-number">2/10</div>
+            <h2 class="slide-title">המציאות הישראלית: נזק מצטבר מדהים <img src="./fire_icon.png" alt="אש" style="height:40px;vertical-align:middle;margin-right:10px;"></h2>
+            <div class="total-damage">
+                <h3>נזק כלכלי מצטבר בישראל בעשור האחרון</h3>
+                <div class="amount">₪4.5B+</div>
+                <div>והמגמה הולכת ומחמירה</div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">2010</div>
+                    <div class="damage-amount">44 הרוגים</div>
+                    <div class="event-description">אסון הכרמל</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2016</div>
+                    <div class="damage-amount">₪2B</div>
+                    <div class="event-description">גל ההצתות</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2021</div>
+                    <div class="damage-amount">₪750M</div>
+                    <div class="event-description">הרי ירושלים</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2024-25</div>
+                    <div class="damage-amount">134,000 דונם</div>
+                    <div class="event-description">צפון + הרי ירושלים</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3: System Crisis -->
+        <div class="slide slide-3">
+            <div class="slide-number">3/10</div>
+            <h2 class="slide-title">המשבר במערכת הכיבוי: המדינה לא תספיק להגן</h2>
+            <div class="crisis-stats">
+                <div class="crisis-card">
+                    <div class="crisis-number">1,460</div>
+                    <div class="crisis-label">כבאים חסרים</div>
+                    <div class="crisis-description">מתוך 3,360 נדרשים לכיסוי מלא</div>
+                </div>
+                <div class="crisis-card">
+                    <div class="crisis-number">25</div>
+                    <div class="crisis-label">תחנות חסרות</div>
+                    <div class="crisis-description">פערים קריטיים ברחבי הארץ</div>
+                </div>
+                <div class="crisis-card">
+                    <div class="crisis-number">9 דקות</div>
+                    <div class="crisis-label">זמן תגובה ממוצע</div>
+                    <div class="crisis-description">במקום 7 דקות כפי שנדרש</div>
+                </div>
+                <div class="crisis-card">
+                    <div class="crisis-number">66%</div>
+                    <div class="crisis-label">פחות תקציב</div>
+                    <div class="crisis-description">מהממוצע האירופי</div>
+                </div>
+            </div>
+            
+            <!-- תמונת מחסור כבאים ממורכזת -->
+            <div style="text-align: center; margin: 40px auto 60px; max-width: 600px;">
+                <img src="./firefighter_shortage.jpg" alt="מחסור בכבאים" style="width: 80%; max-width: 500px; height: auto; border-radius: 15px; box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4); object-fit: cover;">
+            </div>
+        </div>
+        
+        <!-- Slide 4: Personal Impact -->
+        <div class="slide slide-4">
+
+            <div class="slide-number">4/10</div>
+            <div class="personal-impact">
+                <h2 class="slide-title">המחיר האישי: מה זה אומר עליכם?</h2>
+                <div class="impact-stats">
+                    <div class="impact-card">
+                        <div class="impact-percentage">40%</div>
+                        <div class="impact-text">מהבתים לא מבוטחים כלל</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-percentage">70%</div>
+                        <div class="impact-text">אין ביטוח מלא לתכולה</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-percentage">0%</div>
+                        <div class="impact-text">כיסוי לתשתיות ציבוריות</div>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <strong>המסקנה הקשה:</strong><br>
+                    רוב הבתים חשופים • תשתיות הישוב לא מבוטחות • שטחי קק"ל ושמורות ללא הגנה<br>
+                    השיקום יקח שנים • מיליארדי שקלים נזק<br>
+                    <strong>אתם לבד מול האש</strong>
+                </div>
+                <!-- תמונת מפת חום ישראל -->
+                <div style="margin-top:15px; display:flex; justify-content:center;">
+                    <img src="./heat_map.jpg?v=2" alt="מפת חום שריפות" style="width:60%; max-width:300px; height:auto; border-radius:15px; box-shadow:0 4px 20px rgba(239,68,68,0.4); object-fit:cover;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 5: Solution -->
+        <div class="slide slide-5">
+            <div class="slide-number">5/10</div>
+            <h2 class="slide-title">הפתרון: מדוקטרינת תגובה לדוקטרינת הגנה יזומה</h2>
+            <div class="doctrine-comparison">
+                <div class="doctrine-row">
+                    <div class="doctrine-label old-doctrine">דוקטרינת תגובה</div>
+                    <div class="steps-container">
+                        <div class="step old-step">שריפה מתפרצת</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step old-step">גילוי + אזעקה</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step old-step">הגעת כבאות</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step old-step">נסיון כיבוי</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step old-step">נזק + שיקום</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; font-size: 3rem; color: #fbbf24;">⬇</div>
+                
+                <div class="doctrine-row">
+                    <div class="doctrine-label new-doctrine">דוקטרינת הגנה יזומה</div>
+                    <div class="steps-container">
+                        <div class="step new-step">הכנת פרימטר מוגן</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step new-step">זיהוי מוקדם</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step new-step">שריפה מתפרצת אך לא חודרת</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step new-step">גיצים לא מציתים (שטח רווי)</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step new-step">כבאות מוקפצים לנקודה מדויקת</div>
+                        <div class="step-arrow">←</div>
+                        <div class="step new-step">שגרה</div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px; font-size: 1.4rem; color: #e0e7ff; max-width: 900px; margin-left: auto; margin-right: auto;">
+                <strong>מערכת אוטומטית מלאה - ללא צורך במגע אדם</strong><br>
+                גמישה להגנה על יישובים, מתקנים אסטרטגיים, בסיסים ומפעלים
+            </div>
+            <!-- תמונת משפחה תחת איום שריפה -->
+            <div style="margin-top:20px; display:flex; justify-content:center;">
+                <img src="./Family_Under_Threat.jpg?v=11" alt="משפחה תחת איום שריפה" style="width: 45%; max-width: 260px; height: auto; border-radius: 15px; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4); object-fit: cover; margin-top: 20px; margin-bottom: 80px;">
+            </div>
+        </div>
+        
+        <!-- Slide 6: Detection Layer -->
+        <div class="slide slide-6">
+            <div class="slide-number">6/10</div>
+            <h2 class="slide-title">שכבת הזיהוי: לדעת לפני כולם, לפני הלהבה הראשונה</h2>
+            <div class="detection-grid">
+                <div class="detection-item">
+                    <span class="detection-icon sensor-icon">🔬</span>
+                    <h3 class="detection-title">רשת חיישנים אטמוספריים</h3>
+                    <p class="detection-description">
+                        "אף אלקטרוני" שמריח גזי בעירה (CO, H2, VOCs) בדקות הראשונות, 
+                        עוד לפני עשן או להבה
+                    </p>
+                    <!-- תמונת החיישן על העץ -->
+                    <div class="detection-img-wrapper" style="border: 2px solid rgba(52, 211, 153, 0.5);">
+                        <img src="./sensor_tree.jpg" alt="חיישן על עץ">
+                    </div>
+                </div>
+                <div class="detection-item">
+                    <span class="detection-icon camera-icon">📹</span>
+                    <h3 class="detection-title">מערך תצפית אופטי עם AI</h3>
+                    <p class="detection-description">
+                        זיהוי עשן ואש מטווח 16 ק"מ תוך ממוצע של 10 דקות + 
+                        עדכון אוטומטי לשירותי הכבאות עם מיקום מדויק
+                    </p>
+                    <!-- תמונת המצלמה על המגדל -->
+                    <div class="detection-img-wrapper" style="border: 2px solid rgba(96, 165, 250, 0.5);">
+                        <img src="./camera_tower.jpg" alt="מצלמת תצפית">
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px; font-size: 1.4rem; color: #6ee7b7; font-weight: 700;">
+                התוצאה: התראה מדויקת ברמת המטר תוך דקות ספורות
+            </div>
+        </div>
+        
+        <!-- Slide 7: Protection Layer -->
+        <div class="slide slide-7">
+            <div class="slide-number">7/10</div>
+            <h2 class="slide-title">שכבת ההגנה: חומה כפולה נגד אש וגיצים</h2>
+            <div class="protection-layers">
+                <div class="protection-layer">
+                    <div class="layer-number">1</div>
+                    <h3 class="layer-title">חיץ עונתי מוגן</h3>
+                    <p class="layer-description">
+                        פעם בעונה מפזרים חומר מעכב בעירה ידידותי לסביבה בחיץ סביב היישוב/המתקן.
+                        <strong>זה לא מאפשר לאש עצמה להתקרב בכלל למקום המוגן</strong>
+                    </p>
+                    <!-- תמונת פיזור מעכב בעירה -->
+                    <div class="layer-img-wrapper" style="margin-top:20px; display:flex; justify-content:center;">
+                        <img src="./retardant_truck.jpg" alt="פיזור מעכב בעירה" style="width:90%; max-width:350px; height:auto; border-radius:15px; box-shadow:0 6px 20px rgba(251,191,36,0.4); object-fit:cover;">
+                    </div>
+                </div>
+                
+                <!-- התוצאה המושלמת - בין שני הריבועים -->
+                <div class="result-box" style="text-align: center; padding: min(25px, 4vw); background: rgba(251, 191, 36, 0.2); border-radius: 20px; border: 2px solid #fbbf24; position: relative; overflow: hidden; max-width: 600px; max-height: fit-content;">
+                    <!-- השתמש בתמונה השנייה - האש לא חודרת לעיגול המוגן -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('./fire_blocked.jpg') center/cover; opacity: 0.2; border-radius: 18px;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <h3 style="color: #fbbf24; font-size: clamp(1.2rem, 3vw, 1.6rem); margin-bottom: 15px;">התוצאה המושלמת</h3>
+                        <p style="font-size: clamp(1rem, 2.5vw, 1.3rem); color: #fef3c7; line-height: 1.4;">
+                            <strong>שכבה ראשונה:</strong> האש נעצרת בפרימטר המוגן - לא חודרת פנימה<br>
+                            <strong>שכבה שנייה:</strong> השטח הפנימי רווי במים - גיצים לא מציתים<br>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="protection-layer">
+                    <div class="layer-number">2</div>
+                    <h3 class="layer-title">רוויה מלאה נגד גיצים</h3>
+                    <p class="layer-description">
+                        מערכת ההתזה האוטומטית מספיגה את כל השטח הפנימי במים ברגע שמתקבלת התראה.
+                        <strong>רוויה מלאה של הצמחייה והמבנים = גיצים נישאים ברוח לא יכולים להצית שום דבר</strong>
+                    </p>
+                    <!-- תמונת מערכת ממטרות רוויה -->
+                    <div class="layer-img-wrapper" style="margin-top:20px; display:flex; justify-content:center;">
+                        <img src="./sprinklers.png" alt="מערכת ממטרות רוויה" style="width:90%; max-width:350px; height:auto; border-radius:15px; box-shadow:0 6px 20px rgba(251,191,36,0.4); object-fit:cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Automation -->
+        <div class="slide slide-8">
+            <div class="slide-number">8/10</div>
+            <h2 class="slide-title">המוח: מערכת אוטומטית מלאה</h2>
+            <div class="automation-content" style="margin-top:10px;padding-bottom:100px;">
+                <!-- תמונת חדר הבקרה -->
+                <h3 style="font-size: 2rem; color: #ddd6fe; margin-bottom: 15px;">ללא צורך במגע אדם</h3>
+                <div style="margin:5px auto 20px; display:flex; justify-content:center;">
+                    <img src="./control_room.png" alt="חדר בקרה" style="width:70%; max-width:280px; height:auto; border-radius:15px; box-shadow:0 4px 20px rgba(192,132,252,0.3); object-fit:cover;">
+                </div>
+                <div class="automation-features">
+                    <div class="feature-item">
+                        <h4>ניתוח נתונים אוטומטי</h4>
+                        <p>מהחיישנים והמצלמות בזמן אמת</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>החלטה אוטומטית</h4>
+                        <p>על הפעלת ההגנה בהתאם לסיכון</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>הפעלה מיידית</h4>
+                        <p>של מערכת המים תוך שניות</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>עדכון אוטומטי</h4>
+                        <p>לשירותי החירום עם מיקום מדויק</p>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; font-size: 1.3rem; color: #c084fc; font-weight: 700; text-align: center;">
+                    המערכת מגנה 24/7 ללא מפעיל, ללא התערבות, ללא טעויות אנוש
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 9: Benefits -->
+        <div class="slide slide-9">
+            <div class="slide-number">9/10</div>
+            <h2 class="slide-title">היתרון שלכם: ביטחון, שקט נפשי וחיסכון כלכלי</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <span class="benefit-icon shield-icon">🛡️</span>
+                    <h3 class="benefit-title">הגנה הוליסטית</h3>
+                    <p class="benefit-description">מבית בודד ועד מתקן לאומי - פתרון מודולרי ומותאם אישית</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon heart-icon">❤️</span>
+                    <h3 class="benefit-title">שקט נפשי מוחלט</h3>
+                    <p class="benefit-description">הגנה 24/7 אוטומטית - אתם יכולים לישון בשקט גם בעונת השריפות</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon money-icon">💰</span>
+                    <h3 class="benefit-title">השקעה חכמה</h3>
+                    <p class="benefit-description">עלות המערכת לשכונה < מחיר כבאית אחת. זניח מול עלויות השיקום הענקיות</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px; padding: 25px; background: rgba(59, 130, 246, 0.2); border-radius: 15px; border: 2px solid #3b82f6;">
+                <h3 style="color: #93c5fd; font-size: 1.5rem; margin-bottom: 15px;">השורה התחתונה</h3>
+                <p style="font-size: 1.3rem; color: #dbeafe;">
+                    <strong>מגן יישוב = ביטוח שעובד באמת</strong><br>
+                    הגנה מיידית, ללא תלות בכבאות, ללא התלבטויות של חברות ביטוח
+                </p>
+            </div>
+            <!-- תמונת מגן הגנה -->
+            <div style="margin-top:30px; display:flex; justify-content:center;">
+                <img src="./shield_dome.jpg" alt="מגן הגנה" style="width:65%; max-width:320px; height:auto; border-radius:18px; box-shadow:0 6px 25px rgba(59,130,246,0.4); object-fit:cover; margin-bottom:80px;">
+            </div>
+        </div>
+        
+        <!-- Slide 10: Call to Action -->
+        <div class="slide slide-10">
+            <div class="slide-number">10/10</div>
+            <div class="cta-content" style="padding-top:20px;">
+                <!-- Showcase: האש נחסמת לחלוטין -->
+                <div style="margin:0 auto 30px; display:flex; justify-content:center;">
+                    <img src="./fire_blocked.jpg" alt="האש נעצרת" style="width:90%; max-width:500px; height:auto; border-radius:20px; box-shadow:0 8px 28px rgba(251,191,36,0.45); object-fit:cover;">
+                </div>
+                <h2 class="cta-title">השלב הבא: בואו נתכנן את חומת המגן שלכם</h2>
+                <p class="cta-description">
+                    הראיתי לכם למה לא כדאי לחכות שהמדינה תגן עליכם.<br>
+                    השלב הבא פשוט: פגישת אפיון וסיור.<br>
+                    נבנה עבורכם את חבילת ההגנה המתאימה - בית פרטי, שכונה, מתקן אסטרטגי או בסיס צבאי.
+                </p>
+                <button class="cta-button" onclick="alert('תודה! ניצור קשר בהקדם')">בואו נתחיל היום</button>
+                <div style="margin-top: 40px; font-size: 1.2rem; color: #6ee7b7;">
+                    <strong>תודה רבה על ההקשבה</strong>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="goToSlide(0)">1</button>
+            <button class="nav-btn" onclick="goToSlide(1)">2</button>
+            <button class="nav-btn" onclick="goToSlide(2)">3</button>
+            <button class="nav-btn" onclick="goToSlide(3)">4</button>
+            <button class="nav-btn" onclick="goToSlide(4)">5</button>
+            <button class="nav-btn" onclick="goToSlide(5)">6</button>
+            <button class="nav-btn" onclick="goToSlide(6)">7</button>
+            <button class="nav-btn" onclick="goToSlide(7)">8</button>
+            <button class="nav-btn" onclick="goToSlide(8)">9</button>
+            <button class="nav-btn" onclick="goToSlide(9)">10</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const progressBar = document.getElementById('progressBar');
+        
+        function goToSlide(slideIndex) {
+            slides[currentSlide].classList.remove('active');
+            navBtns[currentSlide].classList.remove('active');
+            
+            currentSlide = slideIndex;
+            
+            slides[currentSlide].classList.add('active');
+            navBtns[currentSlide].classList.add('active');
+            
+            // Update progress bar
+            progressBar.style.width = ((currentSlide + 1) / slides.length) * 100 + '%';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < slides.length - 1) {
+                    goToSlide(currentSlide + 1);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    goToSlide(currentSlide - 1);
+                }
+            }
+        });
+        
+        // Mouse wheel navigation
+        document.addEventListener('wheel', function(e) {
+            if (e.deltaY > 0 && currentSlide < slides.length - 1) {
+                goToSlide(currentSlide + 1);
+            } else if (e.deltaY < 0 && currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        });
+        
+        // Touch navigation for mobile
+        let startY = 0;
+        document.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            const endY = e.changedTouches[0].clientY;
+            const diff = startY - endY;
+            
+            if (Math.abs(diff) > 50) { // Minimum swipe distance
+                if (diff > 0 && currentSlide < slides.length - 1) {
+                    goToSlide(currentSlide + 1);
+                } else if (diff < 0 && currentSlide > 0) {
+                    goToSlide(currentSlide - 1);
+                }
+            }
+        });
+        
+        // Initialize progress bar
+        progressBar.style.width = (1 / slides.length) * 100 + '%';
+        
+        // Auto-advance for demo (optional - remove for real presentation)
+        /*
+        setInterval(function() {
+            if (currentSlide < slides.length - 1) {
+                goToSlide(currentSlide + 1);
+            } else {
+                goToSlide(0);
+            }
+        }, 10000); // 10 seconds per slide
+        */
+    </script>
+</body>
+</html>
