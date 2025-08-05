@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/magen_yishuv_presentation.html" }
+  ]
+}
